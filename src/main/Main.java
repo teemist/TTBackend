@@ -11,7 +11,7 @@ public class Main {
         // Создаем и инициализируем граф
         List<Node> graf = new ArrayList<>();
         for (int i = 1; i < 7; i++) {
-            graf.add(new Node(i, Integer.MAX_VALUE));
+            graf.add(new Node(i, false));
         }
         // Соседи первого узла
         graf.get(0).getNeigs().add(graf.get(1));
@@ -55,26 +55,32 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        // обход
+
         Queue<Node> queue = new LinkedList<>();
-        graf.get(0).setDistance(0);
+        graf.get(0).setVisited(true);
         queue.add(graf.get(0));
 
-        // обход
         List<Integer> path = new ArrayList<>();
-        path.add(graf.get(0).getNumber());
 
+        // Пока очередь не пуста, достаю из нее вершину и получаю ее номер
         while (!queue.isEmpty()) {
             int curNum = queue.poll().getNumber();
-            // Цикл перебора соседей всех узлов
-            for (Node neigh : graf.get(curNum - 1).getNeigs()) {
-                if (neigh.getDistance() == Integer.MAX_VALUE) {
-                    neigh.setDistance(graf.get(curNum).getDistance() + 1);
-                    path.add(neigh.getNumber());
-                    queue.add(neigh);
-                }
-                if (neigh.getNumber() == 6) {
-                    queue.clear();
-                    break;
+            path.add(curNum);
+            if(curNum != 6) {
+                // Перебираю соседей вершины, полученной из очереди
+                for (Node neigh : graf.get(curNum - 1).getNeigs()) {
+                    // Если сосед не посещен, отмечаю посещенным
+                    if (!neigh.isVisited()) {
+                        neigh.setVisited(true);
+                        // Добавляю его в очередь
+                        queue.add(neigh);
+                    }
+                    if (neigh.getNumber() == 6) {
+                        path.add(neigh.getNumber());
+                        queue.clear();
+                        break;
+                    }
                 }
             }
         }

@@ -5,16 +5,16 @@ import java.util.List;
 
 public class Node {
     private int number;
-    private int distance;
+    private boolean isVisited;
     private List<Node> neigs;
 
     public void setNeigs(List<Node> neigs) {
         this.neigs = neigs;
     }
 
-    public Node(int number, int distance) {
+    public Node(int number, boolean isVisited) {
         this.number = number;
-        this.distance = distance;
+        this.isVisited = isVisited;
         this.neigs = new ArrayList<>();
     }
 
@@ -26,12 +26,12 @@ public class Node {
         return number;
     }
 
-    public int getDistance() {
-        return distance;
+    public boolean isVisited() {
+        return isVisited;
     }
 
-    public void setDistance(int distance) {
-        this.distance = distance;
+    public void setVisited(boolean isVisited) {
+        this.isVisited = isVisited;
     }
 
 }
