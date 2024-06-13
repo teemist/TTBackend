@@ -12,7 +12,7 @@ public class Node {
         this.neigs = neigs;
     }
 
-    public Node(int number, int distance, boolean isVisited) {
+    public Node(int number, int distance) {
         this.number = number;
         this.distance = distance;
         this.neigs = new ArrayList<>();
@@ -24,10 +24,6 @@ public class Node {
 
     public int getNumber() {
         return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     public int getDistance() {
